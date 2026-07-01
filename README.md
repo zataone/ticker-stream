@@ -1,43 +1,68 @@
-# Real-Time Crypto & Stock Tracker 🚀📈
+# TickerStream — Real-Time Crypto & Stock Tracker 🚀📈
 
-Aplikasi dasbor finansial berkinerja tinggi yang dirancang untuk memantau pergerakan harga saham dan mata uang kripto secara langsung (*live streaming*). Dibangun dengan kombinasi **TypeScript** dan **Svelte / SvelteKit** untuk menghasilkan antarmuka yang ultra-responsif dan hemat memori.
+Aplikasi dasbor finansial berkinerja tinggi yang dirancang untuk memantau pergerakan harga saham dan mata uang kripto secara langsung (*live streaming*). Proyek ini dikembangkan menggunakan **Svelte 5 (Runes)**, **TypeScript**, dan **Tailwind CSS v4** untuk menghasilkan antarmuka yang ultra-responsif, hemat memori, dan mudah disematkan ke dalam sistem portofolio Anda.
 
 ---
 
 ## 🌟 Fitur Utama
 
-* **Real-Time Data Streaming**: Integrasi penuh dengan **WebSocket** untuk pembaruan data harga tanpa jeda (nol *delay*).
-* **Smooth Motion Graphics**: Visualisasi grafik harga interaktif dan dinamis dengan animasi yang mulus saat data berfluktuasi.
-* **Smart Alert System**: Sistem notifikasi instan yang akan terpicu secara *real-time* ketika harga aset menyentuh target angka yang ditentukan oleh pengguna.
-* **Multi-Asset Support**: Kemudahan dalam memantau berbagai aset kripto dan saham populer dalam satu dasbor terintegrasi.
+* **Real-Time Data Streaming**: Integrasi penuh dengan **Binance WebSocket API** untuk pembaruan data harga mata uang kripto secara langsung tanpa jeda (nol *delay*).
+* **High-Fidelity Stock Simulation**: Simulasi real-time pergerakan harga saham populer (AAPL, TSLA, MSFT, AMZN, GOOGL) menggunakan permodelan matematika *Geometric Brownian Motion* (GBM) untuk mensimulasikan data-heavy environment secara realistis di sisi klien.
+* **TradingView Financial Charts**: Integrasi interaktif dengan pustaka `@lightweight-charts` (TradingView) untuk visualisasi pergerakan harga lilin (*candlestick*) dan volume transaksi yang diperbarui secara *real-time*.
+* **Smart Alert System (Web Audio API)**: Sistem alarm harga target yang mengevaluasi kecocokan harga di setiap detak WebSocket. Ketika terpicu, sistem memicu efek suara menggunakan modul sintesis audio bawaan browser serta memunculkan notifikasi melayang (*toast*).
+* **Performance Diagnostics Dashboard**: Widget diagnosis performa aktif yang menampilkan metrik frekuensi detak (*tick rate*), perkiraan pembaruan DOM (*DOM updates count*), total pemrosesan pembaruan, dan latensi jaringan (*network latency*) untuk membuktikan efisiensi kompilasi Svelte 5.
+* **Responsive Grid & Dark/Light Theme**: Dasbor responsif dengan visualisasi sparkline SVG mini pada setiap kartu aset dan transisi mulus antara tema gelap dan terang.
 
 ---
 
 ## ⚡ Keunggulan Sistem (Mengapa Svelte?)
 
-Berbeda dengan framework modern lainnya, proyek ini memanfaatkan arsitektur **Svelte** secara maksimal:
-* **Tanpa Virtual DOM**: Svelte mengompilasi kode menjadi JavaScript murni yang langsung memanipulasi DOM saat *build time*.
-* **Performa Ultra Tinggi**: Mampu melakukan *render ulang* (*re-render*) hingga ribuan data per detik dengan mulus tanpa ada gejala macet (*lag*).
-* **Hemat Memori**: Konsumsi memori pada sisi klien (*client-side memory footprint*) yang sangat kecil, menjadikannya ideal untuk aplikasi *data-heavy* seperti dasbor finansial ini.
-* **Type Safety**: Dukungan penuh **TypeScript** di seluruh komponen untuk memastikan validitas data finansial yang masuk.
+Aplikasi ini memanfaatkan kelebihan arsitektur kompiler **Svelte 5** secara maksimal untuk memproses volume data tinggi:
+* **Tanpa Virtual DOM**: Svelte mengompilasi kode menjadi manipulasi DOM murni saat *build-time*, meminimalkan overhead pemrosesan dan rendering ketika memproses ribuan data per detik.
+* **Svelte 5 Runes**: Pemanfaatan reactivity modern (`$state`, `$derived`, `$effect`, `$state.snapshot`) untuk struktur state yang sangat bersih, modular, dan bebas *boilerplate*.
+* **Hemat Memori**: Konsumsi memori sisi klien (*client-side memory footprint*) yang sangat kecil karena Svelte tidak perlu membandingkan seluruh pohon render saat terjadi pembaruan.
+* **Type Safety**: Integrasi penuh **TypeScript** di seluruh model data, store, dan properti komponen Svelte untuk meminimalisasi bug runtime data finansial.
 
 ---
 
 ## 🛠️ Teknologi yang Digunakan
 
-* **Framework:** SvelteKit / Svelte (TypeScript)
-* **Styling:** Tailwind CSS (atau sebutkan framework CSS pilihan Anda)
-* **State Management:** Svelte Stores (untuk manajemen data WebSocket global)
-* **Charts:** Chart.js / Lightweight Charts (TradingView) / LayerCake
-* **Real-time Protocol:** native WebSocket API / Socket.io
+* **Framework:** SvelteKit / Svelte 5 (TypeScript)
+* **Styling:** Tailwind CSS v4 (menggunakan CSS-first `@theme` variables)
+* **State Management:** Svelte 5 Runes (`tickerStore.svelte.ts`)
+* **Charts:** TradingView `@lightweight-charts`
+* **Real-time Protocol:** Native browser WebSocket API (koneksi ke wss://stream.binance.com) & Web Audio API (untuk sound synthesis)
 
 ---
 
-## 📦 Prasyarat & Instalasi
+## 📦 Instalasi & Penggunaan
 
+### Prasyarat
 Pastikan Anda sudah menginstal **Node.js** (versi 18+) di komputer Anda.
 
+### Langkah-langkah
 1. **Klon repositori ini:**
    ```bash
-   git clone [https://github.com/username/crypto-stock-tracker.git](https://github.com/username/crypto-stock-tracker.git)
-   cd crypto-stock-tracker
+   git clone https://github.com/username/ticker-stream.git
+   cd ticker-stream
+   ```
+
+2. **Instal dependensi:**
+   ```bash
+   npm install
+   ```
+
+3. **Jalankan server pengembangan lokal:**
+   ```bash
+   npm run dev
+   ```
+   Buka peramban (browser) Anda ke alamat `http://localhost:5173`.
+
+4. **Kompilasi build produksi:**
+   ```bash
+   npm run build
+   ```
+   Untuk melihat pratinjau hasil build produksi lokal:
+   ```bash
+   npm run preview
+   ```
